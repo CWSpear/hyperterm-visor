@@ -3,6 +3,11 @@
   "version": "0.1.2",
   "description": "Open your HyperTerm terminal from anywhere with a global hotkey.",
   "repository": "cwspear/hyperterm-visor",
+  "author": {
+    "name": "Cameron Spear",
+    "email": "cameronspear@gmail.com",
+    "url": "cameronspear.com"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"no tests\" && exit 0"
@@ -11,5 +16,10 @@
   "dependencies": {
     "electron": "^0.4.1",
     "lodash.remove": "^4.5.0"
-  }
+  },
+  "keywords": [
+    "hyperterm",
+    "hyperterm-plugin",
+    "visor"
+  ]
 }
