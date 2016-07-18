@@ -1,7 +1,7 @@
 {
   "name": "hyperterm-visor",
   "version": "0.1.1",
-  "description": "Visor for HyperTheme.",
+  "description": "Open your HyperTerm terminal from anywhere with a global hotkey.",
   "repository": "cwspear/hyperterm-visor",
   "main": "index.js",
   "scripts": {
