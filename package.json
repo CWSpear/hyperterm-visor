@@ -1,0 +1,14 @@
+{
+  "name": "hyperterm-visor",
+  "version": "0.1.0",
+  "description": "Visor for HyperTheme.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^0.4.1",
+    "lodash.remove": "^4.5.0"
+  }
+}
