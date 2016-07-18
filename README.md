@@ -2,6 +2,8 @@
 
 Open your terminal from anywhere with a global hotkey.
 
+![HyperTerm Visor](http://i.imgur.com/dCdMdAN.gifv)
+
 ## Config
 
 In your `~/.hyperterm.js`, you can define your hotkey (required) and the position (optional) you want your visor to be. It automatically will open on the screen where your mouse is.
