@@ -1,6 +1,6 @@
 {
   "name": "hyperterm-visor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Visor for HyperTheme.",
   "repository": "cwspear/hyperterm-visor",
   "main": "index.js",
