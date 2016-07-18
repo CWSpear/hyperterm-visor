@@ -2,7 +2,7 @@
 
 Open your terminal from anywhere with a global hotkey.
 
-![HyperTerm Visor](http://i.imgur.com/dCdMdAN.gifv)
+![HyperTerm Visor](https://cloud.githubusercontent.com/assets/495855/16907220/809ea6d0-4c76-11e6-956c-3329a0afc475.gif)
 
 ## Config
 
