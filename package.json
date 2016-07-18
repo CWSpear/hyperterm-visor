@@ -2,6 +2,7 @@
   "name": "hyperterm-visor",
   "version": "0.1.0",
   "description": "Visor for HyperTheme.",
+  "repository": "cwspear/hyperterm-visor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"no tests\" && exit 0"
