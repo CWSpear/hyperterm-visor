@@ -39,4 +39,4 @@ You can define hotkeys as specified in the [Electron Accelerator docs](https://g
 * It always uses the most recently open window as your visor window.
 * If all windows have been closed, it won't do anything until you manually open a new window.
 
-This is pretty basic in its current form, and I'm labeling it as a beta. I will build out more functionality and beef up this README as we go. 
+This is pretty basic in its current form, and I'm labeling it as a beta as I use it and patch up edge cases, etc. I will build out more functionality and beef up this README as we go. 
