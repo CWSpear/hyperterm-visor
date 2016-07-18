@@ -89,8 +89,6 @@ module.exports = class Visor {
                 break;
         }
 
-        console.log(bounds);
-
         this.visorWindow.setBounds(bounds);
     }
 
