@@ -14,8 +14,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron": "^0.4.1",
-    "lodash.remove": "^4.5.0"
+    "electron": "^0.4.1"
   },
   "keywords": [
     "hyperterm",

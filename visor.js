@@ -1,27 +1,25 @@
 'use strict';
 
-const remove = require('lodash.remove');
 const electron = require('electron');
 const { globalShortcut } = electron;
 
 const DEBUG = false;
 
 module.exports = class Visor {
-    constructor(config = {}) {
-        this.windowStack = [];
+    constructor(app) {
+        this.app = app;
+        this.config = app.config.getConfig().visor;
 
         this.visorWindow = null;
         this.oldBounds = null;
-        this.config = config;
 
         // if no hotkey, don't do anything!
         this.registerGlobalHotkey();
     }
 
-    setConfig(config = {}) {
-        this.unregisterGlobalHotkey();
-        this.config = config;
-        this.registerGlobalHotkey();
+    setWindow(window) {
+        debug('maintaining window...');
+        this.visorWindow = window;
     }
 
     registerGlobalHotkey() {
@@ -47,13 +45,28 @@ module.exports = class Visor {
     toggleWindow() {
         debug('toggling window');
 
-        if (!this.visorWindow) return;
+        if (!this.visorWindow) {
+            this.app.createWindow(win => {
+                const onClose = () => {
+                    debug('closing', win.id);
+                    this.visorWindow = null;
+                };
 
-        if (this.visorWindow.isFocused()) {
-            this.visorWindow.hide();
+                debug('registering new window', win.id);
+
+                win.on('close', onClose);
+                win.rpc.emit('session add req');
+                win.focus();
+                this.visorWindow = win;
+                this.setBounds();
+            });
         } else {
-            this.setBounds();
-            this.visorWindow.isVisible() ? this.visorWindow.focus() : this.visorWindow.show();
+            if (this.visorWindow.isFocused()) {
+                this.visorWindow.hide();
+            } else {
+                this.setBounds();
+                this.visorWindow.isVisible() ? this.visorWindow.focus() : this.visorWindow.show();
+            }
         }
     }
 
@@ -100,29 +113,12 @@ module.exports = class Visor {
         }
     }
 
-    registerWindow(win) {
-        const onClose = () => {
-            debug('closing', win.id);
-
-            remove(this.windowStack, { id: win.id });
-
-            if (this.visorWindow.id === win.id) {
-                this.visorWindow = this.windowStack.length ? this.windowStack[this.windowStack.length - 1] : null;
-            }
-        };
-
-        debug('registering new window', win.id);
-
-        win.on('close', onClose);
-
-        this.windowStack.push(win);
-        this.visorWindow = win;
-    }
-
     destroy() {
         this.unregisterGlobalHotkey();
 
         // @TODO other cleanup?
+
+        return this.visorWindow;
     }
 };
 
