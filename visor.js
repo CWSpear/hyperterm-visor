@@ -72,22 +72,27 @@ module.exports = class Visor {
 
         switch (this.config.position) {
             case 'bottom':
-                bounds.y += height / 2;
-                bounds.y = Math.round(bounds.y);
+                bounds.y += this.config.height || height / 2;
+                bounds.width = this.config.width || width;
                 // fall through
             case 'top':
-                bounds.height /= 2;
-                bounds.height = Math.round(bounds.height);
+                bounds.height = this.config.height || height / 2;
+                bounds.width = this.config.width || width;
                 break;
             case 'right':
-                bounds.x += width / 2;
-                bounds.x = Math.round(bounds.x);
+                bounds.x += this.config.width || width / 2;
+                bounds.height = this.config.height || height;
                 // fall through
             case 'left':
-                bounds.width /= 2;
-                bounds.width = Math.round(bounds.width);
+                bounds.width = this.config.width || width / 2;
+                bounds.height = this.config.height || height;
                 break;
         }
+
+        bounds.y = Math.round(bounds.y);
+        bounds.width = Math.round(bounds.width);
+        bounds.x = Math.round(bounds.x);
+        bounds.height = Math.round(bounds.height);
 
         this.visorWindow.setBounds(bounds);
     }
