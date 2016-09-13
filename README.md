@@ -1,5 +1,7 @@
 # HyperTerm Visor
 
+[![Join the chat at https://gitter.im/CWSpear/hyperterm-visor](https://badges.gitter.im/CWSpear/hyperterm-visor.svg)](https://gitter.im/CWSpear/hyperterm-visor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Open your [HyperTerm](https://hyperterm.org/) terminal from anywhere with a global hotkey.
 
 ![HyperTerm Visor](https://cloud.githubusercontent.com/assets/495855/16907220/809ea6d0-4c76-11e6-956c-3329a0afc475.gif)
