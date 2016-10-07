@@ -1,6 +1,6 @@
 {
   "name": "hyperterm-visor",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Open your HyperTerm terminal from anywhere with a global hotkey.",
   "repository": "cwspear/hyperterm-visor",
   "author": {
