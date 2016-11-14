@@ -4,23 +4,25 @@ const remove = require('lodash.remove');
 const electron = require('electron');
 const { globalShortcut } = electron;
 
-const DEBUG = false;
+const DEBUG = process.env.NODE_ENV === 'development' || process.env.DEBUG || false;
+
+let log;
+if (DEBUG) {
+    log = require('electron-log');
+    log.transports.file.level = 'silly';
+}
 
 module.exports = class Visor {
-    constructor(config = {}) {
-        this.windowStack = [];
+    constructor(app, visorWindow = null) {
+        this.app = app;
+        this.config = app.config.getConfig().visor || {};
+        this.visorWindow = visorWindow;
+        this.visorWindow.on('close', () => this.handleOnVisorWindowClose());
 
-        this.visorWindow = null;
-        this.oldBounds = null;
-        this.config = config;
+        if (this.visorWindow) {
+            this.setBounds();
+        }
 
-        // if no hotkey, don't do anything!
-        this.registerGlobalHotkey();
-    }
-
-    setConfig(config = {}) {
-        this.unregisterGlobalHotkey();
-        this.config = config;
         this.registerGlobalHotkey();
     }
 
@@ -47,7 +49,12 @@ module.exports = class Visor {
     toggleWindow() {
         debug('toggling window');
 
-        if (!this.visorWindow) return;
+        console.error('test2');
+        if (!this.visorWindow) {
+            // if no visor window, create one and try toggling again after it's created
+            this.createNewVisorWindow(() => this.setBounds());
+            return;
+        }
 
         if (this.visorWindow.isFocused()) {
             this.visorWindow.hide();
@@ -61,8 +68,6 @@ module.exports = class Visor {
         debug(`setting position to ${this.config.position}`);
 
         if (!this.config.position) return;
-
-        this.oldBounds = this.visorWindow.getBounds();
 
         const screen = electron.screen;
         const point = screen.getCursorScreenPoint();
@@ -97,42 +102,41 @@ module.exports = class Visor {
         this.visorWindow.setBounds(bounds);
     }
 
-    restoreBounds() {
-        if (!this.config.position) return;
+    createNewVisorWindow(callback) {
+        debug('creating new window');
 
-        if (this.oldBounds) {
-            this.visorWindow.setBounds(this.oldBounds);
-        }
+        this.app.createWindow(win => {
+            this.visorWindow = win;
+
+            // creates a shell in the new window
+            win.rpc.emit('termgroup add req');
+
+            this.visorWindow.on('close', () => this.handleOnVisorWindowClose());
+
+            if (callback) {
+                callback();
+            }
+        });
     }
 
-    registerWindow(win) {
-        const onClose = () => {
-            debug('closing', win.id);
+    handleOnVisorWindowClose() {
+        debug('closing');
 
-            remove(this.windowStack, { id: win.id });
-
-            if (this.visorWindow.id === win.id) {
-                this.visorWindow = this.windowStack.length ? this.windowStack[this.windowStack.length - 1] : null;
-            }
-        };
-
-        debug('registering new window', win.id);
-
-        win.on('close', onClose);
-
-        this.windowStack.push(win);
-        this.visorWindow = win;
+        this.visorWindow = null;
     }
 
     destroy() {
         this.unregisterGlobalHotkey();
+        this.visorWindow = null;
 
+        debug('destroyed');
         // @TODO other cleanup?
     }
 };
 
 function debug(...args) {
     if (DEBUG) {
-        console.log(...args);
+        console.error(...args);
+        log.info(...args);
     }
 }
