@@ -31,6 +31,8 @@ modules.exports = {
 
 You can define hotkeys as specified in the [Electron Accelerator docs](https://github.com/electron/electron/blob/master/docs/api/accelerator.md).
 
+Full screen quick tip: You can remove `height` and `width` declarations and set `position: 'full'` to make it use the hole screen.
+
 ## Roadmap
 
 * Better customization of where you can make the terminal appear.
