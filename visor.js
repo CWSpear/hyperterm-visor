@@ -3,7 +3,11 @@
 const remove = require('lodash.remove');
 const electron = require('electron');
 const { globalShortcut } = electron;
-
+const applescript = require('applescript');
+const appleScriptFocusScript = 'tell application "System Events"\n' +
+'	set activeApp to name of first application process whose frontmost is true\n' +
+' tell process activeApp to keystroke "h" using command down\n' +
+'end tell';
 const DEBUG = false;
 
 module.exports = class Visor {
@@ -51,6 +55,8 @@ module.exports = class Visor {
 
         if (this.visorWindow.isFocused()) {
             this.visorWindow.hide();
+            // OS X specific to focus previous application
+            applescript.execString(appleScriptFocusScript);
         } else {
             this.setBounds();
             this.visorWindow.isVisible() ? this.visorWindow.focus() : this.visorWindow.show();
