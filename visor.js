@@ -87,6 +87,12 @@ module.exports = class Visor {
                 bounds.width = this.config.width || width / 2;
                 bounds.height = this.config.height || height;
                 break;
+            case 'center':
+                bounds.width = this.config.width || width / 1.4;
+                bounds.height = this.config.height || height / 2;
+                bounds.y = bounds.height / 2;
+                bounds.x += (display.size.width - bounds.width) / 2;
+                break;
         }
 
         bounds.y = Math.round(bounds.y);
