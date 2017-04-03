@@ -14,6 +14,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "applescript": "^1.0.0",
     "electron": "^0.4.1",
     "lodash.remove": "^4.5.0"
   },
