@@ -46,3 +46,7 @@ You can define hotkeys as specified in the [Electron Accelerator docs](https://g
 * If all windows have been closed, it won't do anything until you manually open a new window.
 
 This is pretty basic in its current form, and I'm labeling it as a beta as I use it and patch up edge cases, etc. I will build out more functionality and beef up this README as we go. 
+
+## Changelog
+
+Starting with version `0.3.0`, I have been documenting changes via GitHub's [release tab](https://github.com/CWSpear/hyperterm-visor/releases).
