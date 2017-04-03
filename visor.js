@@ -1,10 +1,10 @@
 'use strict';
 
-const remove = require('lodash.remove');
 const electron = require('electron');
-const { globalShortcut } = electron;
+const { globalShortcut, BrowserWindow, Menu } = electron;
 
 const DEBUG = process.env.NODE_ENV === 'development' || process.env.DEBUG || false;
+const isMac = process.platform === 'darwin';
 
 let log;
 if (DEBUG) {
@@ -18,6 +18,7 @@ module.exports = class Visor {
         this.config = app.config.getConfig().visor || {};
         this.visorWindow = visorWindow;
         this.visorWindow.on('close', () => this.handleOnVisorWindowClose());
+        this.previousAppFocus = null;
 
         if (this.visorWindow) {
             this.setBounds();
@@ -58,9 +59,16 @@ module.exports = class Visor {
 
         if (this.visorWindow.isFocused()) {
             this.visorWindow.hide();
+            this.returnFocus();
         } else {
             this.setBounds();
-            this.visorWindow.isVisible() ? this.visorWindow.focus() : this.visorWindow.show();
+            if (this.visorWindow.isVisible()) {
+                this.visorWindow.focus();
+            } else {
+                this.previousAppFocus = BrowserWindow.getFocusedWindow();
+                this.visorWindow.show(() => debug('test'));
+                this.visorWindow.focus();
+            }
         }
     }
 
@@ -79,7 +87,7 @@ module.exports = class Visor {
             case 'bottom':
                 bounds.y += this.config.height || height / 2;
                 bounds.width = this.config.width || width;
-                // fall through
+            // fall through
             case 'top':
                 bounds.height = this.config.height || height / 2;
                 bounds.width = this.config.width || width;
@@ -87,7 +95,7 @@ module.exports = class Visor {
             case 'right':
                 bounds.x += this.config.width || width / 2;
                 bounds.height = this.config.height || height;
-                // fall through
+            // fall through
             case 'left':
                 bounds.width = this.config.width || width / 2;
                 bounds.height = this.config.height || height;
@@ -119,6 +127,15 @@ module.exports = class Visor {
         });
     }
 
+    returnFocus() {
+        // this attempts to return focus to the app that previously had focus before Hyper
+        if (((this.previousAppFocus || {}).sessions || {}).size) {
+            this.previousAppFocus.focus();
+        } else if (isMac) {
+            Menu.sendActionToFirstResponder('hide:');
+        }
+    }
+
     handleOnVisorWindowClose() {
         debug('closing');
 
@@ -128,6 +145,7 @@ module.exports = class Visor {
     destroy() {
         this.unregisterGlobalHotkey();
         this.visorWindow = null;
+        this.previousAppFocus = null;
 
         debug('destroyed');
         // @TODO other cleanup?
