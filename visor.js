@@ -24,6 +24,10 @@ module.exports = class Visor {
             this.setBounds();
         }
 
+        if (this.config.hideDock) {
+            this.app.dock.hide();
+        }
+
         this.registerGlobalHotkey();
     }
 
