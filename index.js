@@ -2,6 +2,7 @@
 
 const Visor = require('./visor');
 const log = require('electron-log');
+const registerShortcut = require('hyperterm-register-shortcut');
 
 let visor;
 
@@ -22,6 +23,7 @@ module.exports.onApp = function registerGlobalHotkey(app) {
     }
 
     visor = new Visor(app, visorWindow);
+	registerShortcut('hotkey', () => visor.toggleWindow())(app);
 };
 
 module.exports.onUnload = function unregisterGlobalHotkey() {
