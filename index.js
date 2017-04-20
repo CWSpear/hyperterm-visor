@@ -23,7 +23,7 @@ module.exports.onApp = function registerGlobalHotkey(app) {
     }
 
     visor = new Visor(app, visorWindow);
-	registerShortcut('visor', () => visor.toggleWindow())(app);
+    registerShortcut('visor', () => visor.toggleWindow())(app);
 };
 
 module.exports.onUnload = function unregisterGlobalHotkey() {
