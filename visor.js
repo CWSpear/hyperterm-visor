@@ -23,28 +23,6 @@ module.exports = class Visor {
         if (this.visorWindow) {
             this.setBounds();
         }
-
-        //this.registerGlobalHotkey();
-    }
-
-    registerGlobalHotkey() {
-        if (!this.config.hotkey) return;
-
-        // Register a hotkey shortcut listener.
-        const wasRegistered = registerShortcut('hotkey', () => this.toggleWindow())(this.app, this.visorWindow);
-
-        // @TODO error handling on failure?
-        if (!wasRegistered) {
-            debug('registration failed');
-        } else {
-            debug('registration worked');
-        }
-    }
-
-    unregisterGlobalHotkey() {
-        if (!this.config.hotkey) return;
-
-        globalShortcut.unregister(this.config.hotkey);
     }
 
     toggleWindow() {
@@ -143,7 +121,6 @@ module.exports = class Visor {
     }
 
     destroy() {
-        this.unregisterGlobalHotkey();
         this.visorWindow = null;
         this.previousAppFocus = null;
 
