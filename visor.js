@@ -36,7 +36,9 @@ module.exports = class Visor {
         }
 
         if (this.visorWindow.isFocused()) {
-            this.visorWindow.hide();
+            if (!this.visorWindow.isFullScreen()) {
+                this.visorWindow.hide();
+            }
             this.returnFocus();
         } else {
             this.setBounds();
