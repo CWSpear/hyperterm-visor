@@ -14,8 +14,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.6.2",
-    "electron-log": "^2.0.2",
+    "electron": "^1.6.5",
+    "electron-log": "^2.2.2",
     "hyperterm-register-shortcut": "^1.2.0"
   },
   "keywords": [
