@@ -1,7 +1,7 @@
 'use strict';
 
 const electron = require('electron');
-const { globalShortcut, BrowserWindow, Menu } = electron;
+const { BrowserWindow, Menu } = electron;
 
 const DEBUG = process.env.NODE_ENV === 'development' || process.env.DEBUG || false;
 const isMac = process.platform === 'darwin';
@@ -23,28 +23,6 @@ module.exports = class Visor {
         if (this.visorWindow) {
             this.setBounds();
         }
-
-        this.registerGlobalHotkey();
-    }
-
-    registerGlobalHotkey() {
-        if (!this.config.hotkey) return;
-
-        // Register a hotkey shortcut listener.
-        const wasRegistered = globalShortcut.register(this.config.hotkey, () => this.toggleWindow());
-
-        // @TODO error handling on failure?
-        if (!wasRegistered) {
-            debug('registration failed');
-        } else {
-            debug('registration worked');
-        }
-    }
-
-    unregisterGlobalHotkey() {
-        if (!this.config.hotkey) return;
-
-        globalShortcut.unregister(this.config.hotkey);
     }
 
     toggleWindow() {
@@ -143,7 +121,6 @@ module.exports = class Visor {
     }
 
     destroy() {
-        this.unregisterGlobalHotkey();
         this.visorWindow = null;
         this.previousAppFocus = null;
 
