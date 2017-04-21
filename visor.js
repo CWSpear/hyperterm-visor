@@ -1,7 +1,7 @@
 'use strict';
 
 const electron = require('electron');
-const { globalShortcut, BrowserWindow, Menu } = electron;
+const { BrowserWindow, Menu } = electron;
 
 const DEBUG = process.env.NODE_ENV === 'development' || process.env.DEBUG || false;
 const isMac = process.platform === 'darwin';
@@ -20,35 +20,13 @@ module.exports = class Visor {
         this.visorWindow.on('close', () => this.handleOnVisorWindowClose());
         this.previousAppFocus = null;
 
-        if (this.visorWindow) {
-            this.setBounds();
-        }
-
         if (this.config.hideDock) {
             this.app.dock.hide();
         }
 
-        this.registerGlobalHotkey();
-    }
-
-    registerGlobalHotkey() {
-        if (!this.config.hotkey) return;
-
-        // Register a hotkey shortcut listener.
-        const wasRegistered = globalShortcut.register(this.config.hotkey, () => this.toggleWindow());
-
-        // @TODO error handling on failure?
-        if (!wasRegistered) {
-            debug('registration failed');
-        } else {
-            debug('registration worked');
+        if (this.visorWindow) {
+            this.setBounds();
         }
-    }
-
-    unregisterGlobalHotkey() {
-        if (!this.config.hotkey) return;
-
-        globalShortcut.unregister(this.config.hotkey);
     }
 
     toggleWindow() {
@@ -62,7 +40,9 @@ module.exports = class Visor {
         }
 
         if (this.visorWindow.isFocused()) {
-            this.visorWindow.hide();
+            if (!this.visorWindow.isFullScreen()) {
+                this.visorWindow.hide();
+            }
             this.returnFocus();
         } else {
             this.setBounds();
@@ -147,7 +127,6 @@ module.exports = class Visor {
     }
 
     destroy() {
-        this.unregisterGlobalHotkey();
         this.visorWindow = null;
         this.previousAppFocus = null;
 

@@ -1,6 +1,6 @@
 {
   "name": "hyperterm-visor",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Open your HyperTerm terminal from anywhere with a global hotkey.",
   "repository": "cwspear/hyperterm-visor",
   "author": {
@@ -14,8 +14,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.6.2",
-    "electron-log": "^2.0.2"
+    "electron": "^1.6.5",
+    "electron-log": "^2.2.2",
+    "hyperterm-register-shortcut": "^1.2.0"
   },
   "keywords": [
     "hyperterm",
