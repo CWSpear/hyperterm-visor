@@ -71,7 +71,7 @@ module.exports = class Visor {
         if (this.config.position) {
             this.visorWindow.rpc.emit('add notification', {
                 text: '[Visor Plugin] The `position` option has been deprecated',
-                url: 'https://google.com/', // @TODO update README and put link here
+                url: 'https://github.com/CWSpear/hyperterm-visor/tree/1.0#anchor', // @TODO update link to tag when we go 1.0.0
                 dismissable: true,
             });
         }
@@ -150,9 +150,10 @@ module.exports = class Visor {
             default:
                 this.visorWindow.rpc.emit('add notification', {
                     text: `[Visor Plugin] The \`anchor\` value "${anchor}" is not valid`,
-                    url: 'https://google.com/', // @TODO update README and put link here
+                    url: 'https://github.com/CWSpear/hyperterm-visor/tree/1.0#anchor', // @TODO update link to tag when we go 1.0.0
                     dismissable: true,
                 });
+
                 return;
         }
 
