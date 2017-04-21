@@ -22,6 +22,10 @@ module.exports = class Visor {
 
         this.firstTime = true;
 
+        if (this.config.hideDock) {
+            this.app.dock.hide();
+        }
+
         if (this.visorWindow) {
             this.setBounds(true);
         }
