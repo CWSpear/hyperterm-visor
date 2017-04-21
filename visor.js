@@ -20,6 +20,10 @@ module.exports = class Visor {
         this.visorWindow.on('close', () => this.handleOnVisorWindowClose());
         this.previousAppFocus = null;
 
+        if (this.config.hideDock) {
+            this.app.dock.hide();
+        }
+
         if (this.visorWindow) {
             this.setBounds();
         }
