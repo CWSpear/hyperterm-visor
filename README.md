@@ -24,9 +24,10 @@ modules.exports = {
     // example visor config
     visor: {
       hotkey: 'CommandOrControl+Shift+Z', // required
-      anchor: 'bottom', // (default: 'top')
+      anchor: 'bottom', // default: 'top'
       width: '100%', // optional
       height: 500, // optional
+      hideDock: true, // default: false
     },
   },
   // ...
@@ -60,6 +61,10 @@ If you want, you can just set a width _or_ height. For example, if I set the `wi
 **Accepted values:** any number or string that can parse to a float (i.e. all units are ignored (except `%`)). If the string ends in `%`, it will set the `height`/`width` of the window to the specified percentage of the work area. i.e. `50%` is half the work area.
 
 >If you want your window to take up the full work area, the anchor doesn't really matter, just set both the width and height to 100%.
+
+### Hide Dock Icon
+
+If you want to hide the Hyper icon in the Dock, you can set `hideDock` to `true` and the icon will not appear in the dock.
 
 ## Roadmap
 
