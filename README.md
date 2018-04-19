@@ -24,7 +24,7 @@ modules.exports = {
     // other config...
     visor: {
       hotkey: 'CommandOrControl+Shift+Z',
-      position: 'top', // or left, right, bottom
+      position: 'top', // or left, right, bottom, as well as any quadrant (topLeft, topRight, etc.)
       width: 200, // Optional, defaults to half of viewable area for horizontal positions, 100% for vertical
       height: 900, // Optional, defaults to half of viewable area for vertical positions, 100% for horizontal
     },

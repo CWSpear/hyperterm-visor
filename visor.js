@@ -68,6 +68,21 @@ module.exports = class Visor {
         const { height, width } = bounds;
 
         switch (this.config.position) {
+            case 'bottomRight':
+                bounds.y += this.config.height ? height - this.config.height : height / 2;
+            // fall through
+            case 'topRight':
+                bounds.width = this.config.width || width / 2;
+                bounds.height = this.config.height || height / 2;
+                bounds.x += this.config.width ? width - this.config.width : width / 2;
+                break;
+            case 'bottomLeft':
+                bounds.y += this.config.height ? height - this.config.height : height / 2;
+            // fall through
+            case 'topLeft':
+                bounds.width = this.config.width || width / 2;
+                bounds.height = this.config.height || height / 2;
+                break;
             case 'bottom':
                 bounds.y += this.config.height || height / 2;
                 bounds.width = this.config.width || width;
