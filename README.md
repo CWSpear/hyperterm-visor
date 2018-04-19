@@ -1,3 +1,5 @@
+**Note:** This repository is no longer maintained. Feel free to fork. Probably doesn't work with the latest version of Hyper 1, and certainly unlikely to work with Hyper 2.
+
 # HyperTerm Visor
 
 [![Join the chat at https://gitter.im/CWSpear/hyperterm-visor](https://badges.gitter.im/CWSpear/hyperterm-visor.svg)](https://gitter.im/CWSpear/hyperterm-visor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
